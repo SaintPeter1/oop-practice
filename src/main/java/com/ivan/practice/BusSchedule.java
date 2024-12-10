@@ -1,14 +1,24 @@
-package com.ivan.practice;
+package com.ivan.practice.entity;
 
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "bus_schedule")
 public class BusSchedule {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private String destination;
     private String busNumber;
     private LocalDateTime departureTime;
     private String carrier;
     private int tripDuration; // у хвилинах
     private String licensePlate;
+
+    // Гетери та сетери
+}
 
     public BusSchedule(String destination, String busNumber, LocalDateTime departureTime,
                        String carrier, int tripDuration, String licensePlate) {
