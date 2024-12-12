@@ -1,62 +1,72 @@
 package com.ivan.practice.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotNull;
+import lombok.Data;
+
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "bus_schedule")
+@Data // Автоматично додає геттери, сеттери, toString, equals, hashCode
 public class BusSchedule {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String destination;
+    @NotNull(message = "Route cannot be null")
+    private String route;
+
+    @NotNull(message = "Bus number cannot be null")
     private String busNumber;
+
+    @NotNull(message = "Departure time cannot be null")
     private LocalDateTime departureTime;
-    private String carrier;
-    private int tripDuration; // у хвилинах
-    private String licensePlate;
 
-    // Гетери та сетери
-}
+    @NotNull(message = "Arrival time cannot be null")
+    private LocalDateTime arrivalTime;
 
-    public BusSchedule(String destination, String busNumber, LocalDateTime departureTime,
-                       String carrier, int tripDuration, String licensePlate) {
-        this.destination = destination;
-        this.busNumber = busNumber;
-        this.departureTime = departureTime;
-        this.carrier = carrier;
-        this.tripDuration = tripDuration;
-        this.licensePlate = licensePlate;
+    // Getters and Setters
+    public Long getId() {
+        return id;
     }
 
-    public String getDestination() {
-        return destination;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getRoute() {
+        return route;
+    }
+
+    public void setRoute(String route) {
+        this.route = route;
     }
 
     public String getBusNumber() {
         return busNumber;
     }
 
+    public void setBusNumber(String busNumber) {
+        this.busNumber = busNumber;
+    }
+
     public LocalDateTime getDepartureTime() {
         return departureTime;
     }
 
-    public String getCarrier() {
-        return carrier;
+    public void setDepartureTime(LocalDateTime departureTime) {
+        this.departureTime = departureTime;
     }
 
-    public int getTripDuration() {
-        return tripDuration;
+    public LocalDateTime getArrivalTime() {
+        return arrivalTime;
     }
 
-    public String getLicensePlate() {
-        return licensePlate;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("Платформа №4: %s -> %s | Відправлення: %s | Перевізник: %s | Тривалість: %d хв | Номерний знак: %s",
-                busNumber, destination, departureTime, carrier, tripDuration, licensePlate);
+    public void setArrivalTime(LocalDateTime arrivalTime) {
+        this.arrivalTime = arrivalTime;
     }
 }
